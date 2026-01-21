@@ -1,5 +1,54 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-body {
-    @apply bg-white text-neutral-800 h-screen
+@font-face {
+  font-family: 'Suisse';
+  src: url('/fonts/SuisseIntl-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Suisse';
+  src: url('/fonts/SuisseIntl-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SuisseWorks';
+  src: url('/fonts/SuisseWorks-Regular-WebXL.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer theme {
+  :root {
+    --font-sans: 'Suisse', ui-sans-serif;
+    --font-serif: 'SuisseWorks';
+  }
+}
+
+@layer base {
+  .border {
+    @apply border border-neutral-500/30;
+  }
+
+  .btn {
+    @apply px-2 py-2 inline-flex items-center justify-center rounded-lg hover:bg-gray-200/60 transition cursor-pointer text-xs font-medium backdrop-blur-xs active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply bg-white/70 shadow-xs;
+  }
+
+  .btn-primary {
+    @apply bg-black text-white shadow-sm;
+  }
+
+  .btn-large {
+    @apply px-3 py-3 text-sm;
+  }
 }

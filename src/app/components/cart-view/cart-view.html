@@ -1,0 +1,31 @@
+<div
+  id="overlay"
+  class="cursor-auto fixed top-0 left-0 w-screen h-screen bg-neutral-200/50 backdrop-blur-xs z-20"
+  (click)="closeOverlay()"
+></div>
+<aside
+  class="cursor-auto fixed w-full max-w-120 h-screen border-l border-neutral-500/30 right-0 bottom-0 z-20 bg-white shadow-lg enter"
+>
+  <div class="p-6 text-sm">
+    <button class="btn" (click)="closeOverlay()"><ng-icon name="featherX" /></button>
+  </div>
+  <ul class="flex flex-col gap-3 p-6">
+    @for(item of cart.products; track $index) {
+    <li class="flex justify-between border p-3 gap-3">
+      <img [src]="item.imageUrl" [alt]="item.label" class="size-20" />
+      <div class="flex flex-col text-xs w-full gap-1">
+        <span>{{ item.label }}</span> <span>{{ item.price }}</span>
+      </div>
+      remove
+    </li>
+    } @empty {
+    <p class="text-sm text-neutral-700">No items in cart</p>
+    }
+  </ul>
+  <div class="fixed bottom-0 p-6 flex flex-col gap-6 border-t border-neutral-500/30 w-full text-sm">
+    <p class="flex items-center justify-between">
+      <span class="font-medium">SUBTOTAL</span><span>GHC{{ cart.totalPrice }}</span>
+    </p>
+    <button class="btn btn-large btn-primary w-full">GO TO CHECKOUT</button>
+  </div>
+</aside>

@@ -1,0 +1,10 @@
+.enter {
+  transform: translateX(16px);
+  animation: enter 250ms ease-out forwards;
+}
+
+@keyframes enter {
+  to {
+    transform: translateX(0);
+  }
+}
