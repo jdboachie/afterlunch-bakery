@@ -9,6 +9,10 @@ export const routes: Routes = [
     component: Shop,
     children: [
       {
+        path: 'product/:id',
+        
+      },
+      {
         path: 'cart',
         component: CartView,
       },

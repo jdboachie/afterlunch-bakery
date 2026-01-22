@@ -41,7 +41,7 @@
   }
 
   .btn-secondary {
-    @apply bg-white/70 shadow-xs;
+    @apply bg-white/90 shadow-xs;
   }
 
   .btn-primary {

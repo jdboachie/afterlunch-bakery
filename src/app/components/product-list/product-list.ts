@@ -7,6 +7,7 @@ import { featherPlus, featherMinus } from '@ng-icons/feather-icons';
   selector: 'app-product-list',
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
+  imports: [NgIcon],
   viewProviders: [provideIcons({ featherPlus, featherMinus })],
 })
 export class ProductList {

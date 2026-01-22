@@ -7,7 +7,7 @@ import { CartContext } from '../../services/cart-context.service';
 @Component({
   selector: 'app-header-navigation',
   template: `
-    <div class="px-6 py-12 h-fit flex justify-between items-center sticky top-0 z-10">
+    <div class="px-6 py-12 h-fit flex justify-between bg-white items-center sticky top-0 z-10">
       <a class="text-sm" routerLink="/">MENU</a>
       <p class="font-serif text-lg max-sm:text-base tracking-widest max-sm:tracking-wide">
         AFTERLUNCH BAKERY

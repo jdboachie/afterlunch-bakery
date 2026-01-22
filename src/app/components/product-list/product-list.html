@@ -1,14 +1,16 @@
 <section class="py-6 px-3">
-  <ul class="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-3 gap-y-12">
+  <ul class="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-3 gap-y-12">
     @for(product of products; track product.id) {
-    <div class="relative overflow-hidden group flex flex-col gap-2 hover:bg-neutral-50/90">
+    <div
+      class="relative overflow-hidden cursor-pointer border border-transparent hover:border-amber-500/30 group flex flex-col gap-2 hover:bg-neutral-50/90"
+    >
       <div class="relative overflow-hidden group">
         <img [src]="product.imageUrl" [alt]="product.label" class="size-full" />
         <div
-          class="absolute bottom-0 translate-y-12 max-md:translate-y-0 group-hover:translate-y-0 w-full p-2 flex justify-end transition-transform delay-150 ease-out"
+          class="absolute bottom-0 translate-y-14 max-md:translate-y-0 group-hover:translate-y-0 w-full p-2 flex justify-end duration-200 transition-transform delay-150 ease-out"
         >
-          <button class="btn btn-secondary max-sm:btn-large" (click)="handleAddToCart(product)">
-            Add to cart
+          <button class="btn btn-secondary btn-large" (click)="handleAddToCart(product)">
+            <ng-icon name="featherPlus" /> ADD TO CART
           </button>
         </div>
       </div>
