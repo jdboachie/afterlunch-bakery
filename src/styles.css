@@ -37,7 +37,7 @@
   }
 
   .btn {
-    @apply px-2 py-2 gap-2 inline-flex items-center justify-center rounded-lg hover:bg-gray-200/50 transition cursor-pointer text-xs hover:scale-[1.02] active:scale-[0.98];
+    @apply px-2 py-2 gap-2 inline-flex items-center justify-center rounded-lg hover:bg-gray-200/50 transition cursor-pointer text-xs hover:scale-[1.01] active:scale-[0.98];
   }
 
   .btn-secondary {
