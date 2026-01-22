@@ -10,6 +10,4 @@ import { HeaderNavigation } from './components/header-navigation/header-navigati
 })
 export class App {
   protected readonly title = signal('afterlunch-bakery');
-
-  cart: Cart | undefined = undefined;
 }

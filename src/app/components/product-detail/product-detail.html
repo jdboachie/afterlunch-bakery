@@ -1,1 +1,28 @@
-<p>product-detail works!</p>
+<div
+  id="overlay"
+  class="cursor-auto fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-black/40 z-20 overlay"
+  (click)="closeOverlay()"
+></div>
+<div
+  class="w-screen h-screen border fixed top-0 right-0 z-20 flex items-center justify-center pointer-events-none"
+>
+  <aside
+    class="relative cursor-auto pointer-events-auto p-0 w-full max-w-150 max-h-fit bg-white shadow-lg enter"
+  >
+    <div class="flex flex-col gap-6">
+      <img [src]="product.imageUrl" [alt]="product.label" class="mx-auto" [width]="600" />
+      <div class="p-6 flex flex-col gap-6">
+        <div class="px-1.5 flex justify-between items-center text-base">
+          <p class="font-medium">{{ product.label }}</p>
+          <p class="text-sm">GHC {{ product.price }}</p>
+        </div>
+        <button class="btn btn-primary btn-large rounded-none" (click)="handleAddToCart($event, product)">
+          ADD TO CART
+        </button>
+      </div>
+    </div>
+    <button (click)="closeOverlay()" class="btn bg-neutral-100/30  hover:bg-neutral-300/30 shadow-xs absolute top-4 right-4 rounded-full">
+      <ng-icon name="featherX" />
+    </button>
+  </aside>
+</div>

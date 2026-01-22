@@ -8,12 +8,12 @@ import { CartContext } from '../../services/cart-context.service';
   selector: 'app-header-navigation',
   template: `
     <div class="px-6 py-12 h-fit flex justify-between bg-white items-center sticky top-0 z-10">
-      <a class="text-sm" routerLink="/">MENU</a>
+      <a class="font-serif text-2xl" routerLink="/">↟</a>
       <p class="font-serif text-lg max-sm:text-base tracking-widest max-sm:tracking-wide">
         AFTERLUNCH BAKERY
       </p>
       <div class="flex items-center relative">
-        <a class="btn" aria-label="cart" title="cart" routerLink="/cart">
+        <a class="btn rounded-full" aria-label="cart" title="cart" routerLink="/cart">
           <ng-icon name="featherShoppingBag" />
         </a>
         @if (cartCount() > 0) {

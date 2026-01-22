@@ -16,7 +16,7 @@ export class CartContext {
     }));
   }
 
-  remove(id: number) {
+  remove(id: string) {
     this.cartSignal.update((cart) => {
       const product = cart.products.find((p) => p.id === id);
       if (!product) return cart;

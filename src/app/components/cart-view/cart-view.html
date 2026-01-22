@@ -1,13 +1,13 @@
 <div
   id="overlay"
-  class="cursor-auto fixed top-0 left-0 w-screen h-screen bg-black/40 z-20"
+  class="cursor-auto fixed top-0 left-0 w-screen h-screen bg-black/40 z-20 overlay"
   (click)="closeOverlay()"
 ></div>
 <aside
   class="cursor-auto fixed w-full max-w-120 h-screen border-l border-neutral-500/30 right-0 bottom-0 z-20 bg-white shadow-lg enter"
 >
   <div class="p-6 text-sm flex items-center justify-between">
-    <button class="btn" (click)="closeOverlay()"><ng-icon name="featherX" /></button>
+    <button class="btn rounded-full" (click)="closeOverlay()"><ng-icon name="featherX" /></button>
     <div class="flex items-center gap-2">
       CART ({{ cart().products.length }})<ng-icon name="featherShoppingBag" />
     </div>
@@ -30,7 +30,7 @@
     <p class="flex items-center justify-between">
       <span class="font-medium">SUBTOTAL</span><span>GHC {{ cart().totalPrice }}</span>
     </p>
-    <button [disabled]="cart().products.length > 0" class="btn btn-large btn-primary w-full">
+    <button [disabled]="cart().products.length > 0" class="btn btn-large btn-primary rounded-none w-full">
       GO TO CHECKOUT
     </button>
   </div>

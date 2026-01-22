@@ -37,7 +37,7 @@
   }
 
   .btn {
-    @apply px-2 py-2 gap-2 inline-flex items-center justify-center rounded-lg hover:bg-gray-200/60 transition cursor-pointer text-xs backdrop-blur-xs active:scale-[0.98];
+    @apply px-2 py-2 gap-2 inline-flex items-center justify-center rounded-lg hover:bg-gray-200/50 transition cursor-pointer text-xs hover:scale-[1.02] active:scale-[0.98];
   }
 
   .btn-secondary {
@@ -50,5 +50,18 @@
 
   .btn-large {
     @apply px-3 py-3 text-xs;
+  }
+
+  .overlay {
+    opacity: 0;
+    animation: overlay-enter 500ms ease-out forwards;
+    backdrop-filter: blur(0);
+  }
+}
+
+@keyframes overlay-enter {
+  to {
+    opacity: 1;
+    backdrop-filter: blur(0.1rem);
   }
 }
