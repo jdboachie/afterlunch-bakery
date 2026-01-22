@@ -30,7 +30,10 @@
     <p class="flex items-center justify-between">
       <span class="font-medium">SUBTOTAL</span><span>GHC {{ cart().totalPrice }}</span>
     </p>
-    <button [disabled]="cart().products.length > 0" class="btn btn-large btn-primary rounded-none w-full">
+    <button
+      [disabled]="cart().products.length === 0"
+      class="btn btn-large btn-primary rounded-none w-full"
+    >
       GO TO CHECKOUT
     </button>
   </div>
