@@ -1,26 +1,35 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartContext {
-  private cart: Cart = { products: [], totalPrice: 0.0 };
+  private cartSignal = signal<Cart>({ products: [], totalPrice: 0.0 });
+
+  cart = this.cartSignal.asReadonly();
 
   add(product: Product) {
-    // construct a cart item and push it. cart item extends product with quantity
-    this.cart.products.push(product);
-    this.cart.totalPrice += product.price;
+    this.cartSignal.update((cart) => ({
+      ...cart,
+      products: [...cart.products, product],
+      totalPrice: cart.totalPrice + product.price,
+    }));
   }
 
   remove(id: number) {
-    const product = this.cart.products.find((p) => p.id === id);
-    if (product) {
-      this.cart.totalPrice -= product.price;
-      this.cart.products = this.cart.products.filter((p) => p.id !== id);
-    }
+    this.cartSignal.update((cart) => {
+      const product = cart.products.find((p) => p.id === id);
+      if (!product) return cart;
+
+      return {
+        ...cart,
+        products: cart.products.filter((p) => p.id !== id),
+        totalPrice: cart.totalPrice - product.price,
+      };
+    });
   }
 
   get() {
-    return this.cart;
+    return this.cartSignal();
   }
 }

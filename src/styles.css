@@ -37,7 +37,7 @@
   }
 
   .btn {
-    @apply px-2 py-2 inline-flex items-center justify-center rounded-lg hover:bg-gray-200/60 transition cursor-pointer text-xs font-medium backdrop-blur-xs active:scale-[0.98];
+    @apply px-2 py-2 gap-2 inline-flex items-center justify-center rounded-lg hover:bg-gray-200/60 transition cursor-pointer text-xs backdrop-blur-xs active:scale-[0.98];
   }
 
   .btn-secondary {
@@ -45,10 +45,10 @@
   }
 
   .btn-primary {
-    @apply bg-black text-white shadow-sm;
+    @apply bg-black hover:bg-black/80 text-white shadow-sm;
   }
 
   .btn-large {
-    @apply px-3 py-3 text-sm;
+    @apply px-3 py-3 text-xs;
   }
 }

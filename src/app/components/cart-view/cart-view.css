@@ -1,6 +1,6 @@
 .enter {
   transform: translateX(16px);
-  animation: enter 250ms ease-out forwards;
+  animation: enter 250ms linear forwards;
 }
 
 @keyframes enter {
