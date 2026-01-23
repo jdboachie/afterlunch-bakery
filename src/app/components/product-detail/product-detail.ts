@@ -1,7 +1,7 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Inventory } from '../../services/inventory.service';
-import { CartContext } from '../../services/cart-context.service';
+import { Inventory } from '../../services/inventory';
+import { CartContext } from '../../services/cart-context';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { featherX } from '@ng-icons/feather-icons';
 

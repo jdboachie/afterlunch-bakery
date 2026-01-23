@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { CartContext } from '../../services/cart-context.service';
+import { CartContext } from '../../services/cart-context';
 import { featherX, featherShoppingBag, featherPlus, featherMinus } from '@ng-icons/feather-icons';
 
 @Component({

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, inject } from '@angular/core';
 import { ProductList } from '../product-list/product-list';
 import { RouterOutlet } from '@angular/router';
-import { CartContext } from '../../services/cart-context.service';
-import { Inventory } from '../../services/inventory.service';
+import { CartContext } from '../../services/cart-context';
+import { Inventory } from '../../services/inventory';
 
 @Component({
   selector: 'app-shop',
