@@ -45,7 +45,7 @@
   }
 
   .btn-secondary {
-    @apply bg-white/90 shadow-xs;
+    @apply bg-white/90 hover:bg-white/80 shadow-xs;
   }
 
   .btn-primary {

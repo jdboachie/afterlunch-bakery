@@ -2,14 +2,14 @@ import { Component, inject, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { featherShoppingBag } from '@ng-icons/feather-icons';
-import { CartContext } from '../../services/cart-context.service';
+import { CartContext } from '../../services/cart-context';
 
 @Component({
   selector: 'app-header-navigation',
   template: `
     <div class="px-6 py-12 h-fit flex justify-between bg-white items-center sticky top-0 z-10">
       <a class="font-serif text-2xl" routerLink="/">↟</a>
-      <p class="font-serif text-lg max-sm:text-base tracking-widest max-sm:tracking-wide">
+      <p class="font-serif text-lg max-sm:text-base tracking-wide max-sm:tracking-normal">
         AFTERLUNCH BAKERY
       </p>
       <div class="flex items-center relative">
