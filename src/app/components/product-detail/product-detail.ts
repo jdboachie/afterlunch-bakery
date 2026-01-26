@@ -26,7 +26,7 @@ export class ProductDetail {
     let productId: string = this.activatedRoute.snapshot.params['id'];
     this.product = this.inventory.get(productId) as Product;
     if (this.product === undefined) {
-      this.logger.reportError("Product could not be found")
+      this.logger.reportError('Product could not be found');
       this.router.navigateByUrl('');
     }
   }
