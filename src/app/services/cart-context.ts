@@ -1,4 +1,7 @@
 import { Injectable, signal } from '@angular/core';
+import { LocalSync } from './local-sync';
+
+const STORAGE_KEY = 'AFTERLUNCH_CART';
 
 @Injectable({
   providedIn: 'root',
@@ -7,6 +10,10 @@ export class CartContext {
   private cartSignal = signal<Cart>({ products: [], totalPrice: 0.0 });
 
   cart = this.cartSignal.asReadonly();
+
+  constructor(private localSync: LocalSync) {
+    this.localSync.init(STORAGE_KEY, this.cartSignal).sync(STORAGE_KEY, this.cart);
+  }
 
   add(product: Product) {
     this.cartSignal.update((cart) => ({
