@@ -11,9 +11,9 @@ import { Logging } from '../../services/logging';
   </div>`,
 })
 export class NotFound {
-  private readonly logging = inject(Logging);
+  private readonly logger = inject(Logging);
 
   ngOnInit() {
-    this.logging.reportError('User hit a 404 page');
+    this.logger.reportError('User hit a 404 page');
   }
 }
