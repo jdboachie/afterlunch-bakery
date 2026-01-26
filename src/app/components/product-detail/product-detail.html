@@ -9,19 +9,27 @@
   <aside
     class="relative cursor-auto pointer-events-auto p-0 w-full max-w-150 max-h-fit bg-white shadow-lg enter"
   >
-    <div class="flex flex-col gap-6">
+    <div class="flex flex-col gap6">
       <img [src]="product.imageUrl" [alt]="product.label" class="mx-auto" [width]="600" />
       <div class="p-6 flex flex-col gap-6">
         <div class="px-1.5 flex justify-between items-center text-base">
-          <p class="font-medium">{{ product.label }}</p>
-          <p class="text-sm">GHC {{ product.price }}</p>
+          <div class="flex flex-col gap-2">
+            <p class="font-medium text-lg">{{ product.label }}</p>
+            <p class="text-xs text-neutral-600">{{ product.description }}</p>
+          </div>
         </div>
-        <button class="btn btn-primary btn-large rounded-none" (click)="handleAddToCart($event, product)">
-          ADD TO CART
+        <button
+          class="btn btn-primary btn-large rounded-none"
+          (click)="handleAddToCart($event, product)"
+        >
+          ADD TO CART - GHC {{ product.price }}
         </button>
       </div>
     </div>
-    <button (click)="closeOverlay()" class="btn bg-neutral-100/30  hover:bg-neutral-300/30 shadow-xs absolute top-4 right-4 rounded-full">
+    <button
+      (click)="closeOverlay()"
+      class="btn bg-neutral-100/30 hover:bg-neutral-300/30 shadow-xs absolute top-4 right-4 rounded-full"
+    >
       <ng-icon name="featherX" />
     </button>
   </aside>

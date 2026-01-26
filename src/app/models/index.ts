@@ -1,11 +1,12 @@
 interface Product {
-  id: string
-  label: string
-  imageUrl: string
-  price: number
+  id: string;
+  label: string;
+  description: string;
+  imageUrl: string;
+  price: number;
 }
 
 interface Cart {
-  products: Product[]
-  totalPrice: number
+  products: Product[];
+  totalPrice: number;
 }
