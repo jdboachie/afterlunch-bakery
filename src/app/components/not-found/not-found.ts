@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Logging } from '../../services/logging';
 
 @Component({
   selector: 'app-not-found',
@@ -9,4 +10,10 @@ import { Component } from '@angular/core';
     </p>
   </div>`,
 })
-export class NotFound {}
+export class NotFound {
+  private readonly logger = inject(Logging);
+
+  ngOnInit() {
+    this.logger.reportError('User hit a 404 page');
+  }
+}
