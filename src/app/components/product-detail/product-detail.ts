@@ -1,5 +1,6 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgOptimizedImage } from '@angular/common';
 import { Inventory } from '../../services/inventory';
 import { CartContext } from '../../services/cart-context';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -8,10 +9,11 @@ import { Logging } from '../../services/logging';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [NgIcon],
+  imports: [NgIcon, NgOptimizedImage],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
   viewProviders: [provideIcons({ featherX })],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductDetail {
   protected readonly router = inject(Router);

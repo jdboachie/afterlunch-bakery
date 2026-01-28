@@ -1,37 +1,40 @@
 @import 'tailwindcss';
 
 @font-face {
-  font-family: 'Suisse';
-  src: url('/fonts/SuisseIntl-Regular.woff2') format('woff2');
-  font-weight: 400;
+  font-family: 'sans';
+  src: url('/fonts/RedHatText-VariableFont_wght.ttf');
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Suisse';
-  src: url('/fonts/SuisseIntl-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
+  font-family: 'sans';
+  src: url('/fonts/RedHatText-Italic-VariableFont_wght.ttf');
+  font-style: italic;
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'SuisseWorks';
-  src: url('/fonts/SuisseWorks-Regular-WebXL.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+@theme {
+  --font-sans: 'sans', ui-sans-serif;
+  --font-serif: 'SuisseWorks';
 
-@layer theme {
-  :root {
-    --font-sans: 'Suisse', ui-sans-serif;
-    --font-serif: 'SuisseWorks';
-  }
+  --color-red: #c73b0f;
+
+  --color-rose-900: #260f08;
+  --color-rose-500: #87635a;
+  --color-rose-400: #ad8a85;
+  --color-rose-300: #caafa7;
+  --color-rose-100: #f5eeec;
+  --color-rose-50: #fcf8f6;
+
+  --color-green: #1ea575;
 }
 
 @layer base {
+  body {
+    @apply bg-rose-50;
+  }
+
   .border {
     @apply border border-neutral-500/30;
   }
@@ -56,14 +59,19 @@
     @apply px-3 py-3 text-xs;
   }
 
-  .overlay {
-    animation: overlay-enter 500ms ease-out forwards;
-    backdrop-filter: blur(0);
+  .text-preset-1 {
+    @apply text-[56px] leading-[120%] tracking-[0px] font-bold;
   }
-}
 
-@keyframes overlay-enter {
-  to {
-    backdrop-filter: blur(0.1rem);
+  .text-preset-2 {
+    @apply text-[24px] leading-[125%] tracking-[0px] font-bold;
+  }
+
+  .text-preset-3 {
+    @apply text-base leading-[150%] tracking-[0px] font-semibold;
+  }
+
+  .text-preset-4 {
+    @apply text-sm leading-[150%] tracking-[0px] font-normal;
   }
 }

@@ -1,0 +1,27 @@
+.enter {
+  transform: translateY(32px);
+  opacity: 0;
+  scale: 0.95;
+  filter: blur(8px);
+  animation: enter 200ms ease-out forwards;
+}
+
+@keyframes enter {
+  to {
+    opacity: 1;
+    scale: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.overlay {
+  opacity: 0;
+  animation: overlay-enter 200ms ease-out forwards;
+}
+
+@keyframes overlay-enter {
+  to {
+    opacity: 1;
+  }
+}

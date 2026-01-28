@@ -31,5 +31,5 @@ import { CartContext } from '../../services/cart-context';
 export class HeaderNavigation {
   protected readonly cartContext = inject(CartContext);
 
-  cartCount = computed(() => this.cartContext.cart().products.length);
+  cartCount = this.cartContext.totalItems;
 }

@@ -9,18 +9,24 @@
   <div class="p-6 text-sm flex items-center justify-between">
     <button class="btn rounded-full" (click)="closeOverlay()"><ng-icon name="featherX" /></button>
     <div class="flex items-center gap-2">
-      CART ({{ cart().products.length }})<ng-icon name="featherShoppingBag" />
+      CART ({{ cart().items.length }})<ng-icon name="featherShoppingBag" />
     </div>
   </div>
   <ul class="flex flex-col gap-3 p-6">
-    @for(item of cart().products; track $index) {
+    @for (item of cart().items; track item.product.id) {
     <li class="flex justify-between border p-3 gap-3">
-      <img [src]="item.imageUrl" [alt]="item.label" class="size-20" />
+      <img
+        [src]="item.product.image.thumbnail"
+        [alt]="item.product.name"
+        class="size-20 object-cover"
+      />
       <div class="flex flex-col text-xs w-full gap-1">
-        <span class="font-medium">{{ item.label }}</span>
-        <span class="text-neutral-700">GHC {{ item.price }}</span>
+        <span class="font-medium">{{ item.product.name }}</span>
+        <span class="text-neutral-700">{{ item.quantity }} x GHC {{ item.product.price }}</span>
       </div>
-      <button class="btn text-neutral-700 h-fit" (click)="removeCartItem(item)">REMOVE</button>
+      <button class="btn text-neutral-700 h-fit" (click)="removeCartItem(item.product)">
+        REMOVE
+      </button>
     </li>
     } @empty {
     <p class="text-sm text-neutral-700">No items in cart</p>
@@ -31,7 +37,7 @@
       <span class="font-medium">SUBTOTAL</span><span>GHC {{ cart().totalPrice }}</span>
     </p>
     <button
-      [disabled]="cart().products.length === 0"
+      [disabled]="cart().items.length === 0"
       class="btn btn-large btn-primary rounded-none w-full"
     >
       GO TO CHECKOUT

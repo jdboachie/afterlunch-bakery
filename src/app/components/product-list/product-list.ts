@@ -1,24 +1,42 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component, ChangeDetectionStrategy, inject, input } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { featherPlus, featherMinus } from '@ng-icons/feather-icons';
+import { CartContext } from '../../services/cart-context';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
-  imports: [NgIcon, RouterLink],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgIcon, DecimalPipe],
   viewProviders: [provideIcons({ featherPlus, featherMinus })],
 })
 export class ProductList {
-  @Input() products: Product[] = [];
-  @Output() addToCart = new EventEmitter<Product>();
+  products = input<Product[]>([]);
 
-  protected readonly router = inject(Router);
+  protected readonly cart = inject(CartContext);
 
   handleAddToCart(event: MouseEvent, product: Product) {
-    event.stopPropagation()
-    this.addToCart.emit(product);
-    this.router.navigateByUrl('/cart');
+    event.stopPropagation();
+    this.cart.add(product);
+  }
+
+  handleIncrement(event: MouseEvent, product: Product) {
+    event.stopPropagation();
+    this.cart.increment(product.id);
+  }
+
+  handleDecrement(event: MouseEvent, product: Product) {
+    event.stopPropagation();
+    this.cart.decrement(product.id);
+  }
+
+  getQuantity(productId: string): number {
+    return this.cart.getQuantity(productId);
+  }
+
+  isInCart(productId: string): boolean {
+    return this.getQuantity(productId) > 0;
   }
 }

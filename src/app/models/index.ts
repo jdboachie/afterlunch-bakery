@@ -1,12 +1,24 @@
+interface ProductImage {
+  thumbnail: string;
+  mobile: string;
+  tablet: string;
+  desktop: string;
+}
+
 interface Product {
   id: string;
-  label: string;
-  description: string;
-  imageUrl: string;
+  name: string;
+  category: string;
+  image: ProductImage;
   price: number;
 }
 
+interface CartItem {
+  product: Product;
+  quantity: number;
+}
+
 interface Cart {
-  products: Product[];
+  items: CartItem[];
   totalPrice: number;
 }
