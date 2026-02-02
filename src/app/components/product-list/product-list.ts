@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject, input } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { featherPlus, featherMinus } from '@ng-icons/feather-icons';
 import { CartContext } from '../../services/cart-context';
@@ -9,7 +10,7 @@ import { CartContext } from '../../services/cart-context';
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIcon, DecimalPipe],
+  imports: [NgIcon, DecimalPipe, RouterLink],
   viewProviders: [provideIcons({ featherPlus, featherMinus })],
 })
 export class ProductList {

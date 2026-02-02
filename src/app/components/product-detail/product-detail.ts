@@ -1,25 +1,25 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgOptimizedImage } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { Inventory } from '../../services/inventory';
 import { CartContext } from '../../services/cart-context';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { featherX } from '@ng-icons/feather-icons';
+import { featherPlus, featherMinus } from '@ng-icons/feather-icons';
 import { Logging } from '../../services/logging';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [NgIcon, NgOptimizedImage],
+  imports: [NgIcon, DecimalPipe],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
-  viewProviders: [provideIcons({ featherX })],
+  viewProviders: [provideIcons({ featherPlus, featherMinus })],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductDetail {
   protected readonly router = inject(Router);
+  protected readonly cart = inject(CartContext);
   private activatedRoute = inject(ActivatedRoute);
   private inventory = inject(Inventory);
-  private cart = inject(CartContext);
   private logger = inject(Logging);
 
   product: Product;
@@ -33,13 +33,27 @@ export class ProductDetail {
     }
   }
 
-  closeOverlay() {
+  goBack() {
     this.router.navigateByUrl('');
   }
 
-  handleAddToCart(event: MouseEvent, product: Product) {
-    event.stopPropagation();
+  handleAddToCart(product: Product) {
     this.cart.add(product);
-    this.router.navigateByUrl('/cart');
+  }
+
+  handleIncrement() {
+    this.cart.increment(this.product.id);
+  }
+
+  handleDecrement() {
+    this.cart.decrement(this.product.id);
+  }
+
+  getQuantity(): number {
+    return this.cart.getQuantity(this.product.id);
+  }
+
+  isInCart(): boolean {
+    return this.getQuantity() > 0;
   }
 }
