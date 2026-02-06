@@ -1,13 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 
-interface RawProduct {
-  image: ProductImage;
-  name: string;
-  category: string;
-  price: number;
-}
-
 @Injectable({
   providedIn: 'root',
 })

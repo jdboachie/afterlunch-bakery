@@ -13,6 +13,13 @@ interface Product {
   price: number;
 }
 
+interface RawProduct {
+  image: ProductImage;
+  name: string;
+  category: string;
+  price: number;
+}
+
 interface CartItem {
   product: Product;
   quantity: number;
