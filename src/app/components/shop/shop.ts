@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AsyncPipe, DecimalPipe } from '@angular/common';
 import { ProductList } from '../product-list/product-list';
 import { OrderConfirmation } from '../order-confirmation/order-confirmation';
@@ -20,6 +21,14 @@ export class Shop {
   public readonly loadError$ = this.inventory.loadError$;
   private readonly search$ = new BehaviorSubject<string>('');
   public readonly filteredProducts$ = this.inventory.filter(this.search$);
+  public readonly enrichedFilteredProducts$ = combineLatest([
+    this.filteredProducts$,
+    this.cart.cart$,
+  ]).pipe(
+    map(([products, cart]) =>
+      products.map((p) => ({ ...p, inCartQuantity: cart.items.find((i) => i.product.id === p.id)?.quantity ?? 0 })),
+    ),
+  );
   public readonly showConfirmation$ = new BehaviorSubject<boolean>(false);
 
   public handleSearch(event: Event) {
