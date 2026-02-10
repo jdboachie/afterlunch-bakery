@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { AsyncPipe, DecimalPipe } from '@angular/common';
 import { ProductList } from '../product-list/product-list';
 import { OrderConfirmation } from '../order-confirmation/order-confirmation';
 import { RouterOutlet } from '@angular/router';
@@ -8,28 +9,27 @@ import { Inventory } from '../../services/inventory';
 
 @Component({
   selector: 'app-shop',
-  imports: [ProductList, RouterOutlet, DecimalPipe, OrderConfirmation],
+  imports: [ProductList, RouterOutlet, DecimalPipe, OrderConfirmation, AsyncPipe],
   templateUrl: './shop.html',
-  styleUrl: './shop.css',
+  styleUrls: ['./shop.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Shop {
   cart = inject(CartContext);
   inventory = inject(Inventory);
-
-  products = this.inventory.products;
-  showConfirmation = signal(false);
+  products$ = this.inventory.products$;
+  showConfirmation$ = new BehaviorSubject<boolean>(false);
 
   handleRemove(productId: string) {
     this.cart.remove(productId);
   }
 
   handleConfirmOrder() {
-    this.showConfirmation.set(true);
+    this.showConfirmation$.next(true);
   }
 
   handleStartNewOrder() {
     this.cart.clear();
-    this.showConfirmation.set(false);
+    this.showConfirmation$.next(false);
   }
 }

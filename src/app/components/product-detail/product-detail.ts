@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DecimalPipe } from '@angular/common';
 import { Inventory } from '../../services/inventory';
@@ -11,7 +12,7 @@ import { Logging } from '../../services/logging';
   selector: 'app-product-detail',
   imports: [NgIcon, DecimalPipe],
   templateUrl: './product-detail.html',
-  styleUrl: './product-detail.css',
+  styleUrls: ['./product-detail.css'],
   viewProviders: [provideIcons({ featherPlus, featherMinus })],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -22,15 +23,21 @@ export class ProductDetail {
   private inventory = inject(Inventory);
   private logger = inject(Logging);
 
-  product: Product;
+  product?: Product;
 
   constructor() {
-    let productId: string = this.activatedRoute.snapshot.params['id'];
-    this.product = this.inventory.get(productId) as Product;
-    if (this.product === undefined) {
-      this.logger.reportError('Product could not be found');
-      this.router.navigateByUrl('');
-    }
+    const productId: string = this.activatedRoute.snapshot.params['id'];
+    this.inventory
+      .get(productId)
+      .pipe(take(1))
+      .subscribe((p) => {
+        if (!p || Array.isArray(p)) {
+          this.logger.reportError('Product could not be found');
+          this.router.navigateByUrl('');
+          return;
+        }
+        this.product = p;
+      });
   }
 
   goBack() {
@@ -42,15 +49,17 @@ export class ProductDetail {
   }
 
   handleIncrement() {
+    if (!this.product) return;
     this.cart.increment(this.product.id);
   }
 
   handleDecrement() {
+    if (!this.product) return;
     this.cart.decrement(this.product.id);
   }
 
   getQuantity(): number {
-    return this.cart.getQuantity(this.product.id);
+    return this.product ? this.cart.getQuantity(this.product.id) : 0;
   }
 
   isInCart(): boolean {

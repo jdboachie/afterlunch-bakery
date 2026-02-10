@@ -8,7 +8,7 @@ import { CartContext } from '../../services/cart-context';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.html',
-  styleUrl: './product-list.css',
+  styleUrls: ['./product-list.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIcon, DecimalPipe, RouterLink],
   viewProviders: [provideIcons({ featherPlus, featherMinus })],
