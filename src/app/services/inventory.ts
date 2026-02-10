@@ -84,10 +84,15 @@ export class Inventory {
     );
   }
 
-  public enrichedProductsWithCart(cart$: Observable<Cart>): Observable<(Product & { inCartQuantity: number })[]> {
+  public enrichedProductsWithCart(
+    cart$: Observable<Cart>,
+  ): Observable<(Product & { inCartQuantity: number })[]> {
     return combineLatest([this.products$, cart$]).pipe(
       map(([products, cart]) =>
-        products.map((p) => ({ ...p, inCartQuantity: cart.items.find((i) => i.product.id === p.id)?.quantity ?? 0 })),
+        products.map((p) => ({
+          ...p,
+          inCartQuantity: cart.items.find((i) => i.product.id === p.id)?.quantity ?? 0,
+        })),
       ),
     );
   }
@@ -98,7 +103,10 @@ export class Inventory {
       switchMap((id) => this.get(id)),
       mergeMap((p) => {
         if (!p) return of(undefined);
-        return of({ ...(p as Product), description: `${p.name} — freshly fetched details` } as Product & {
+        return of({
+          ...(p as Product),
+          description: `${p.name} — freshly fetched details`,
+        } as Product & {
           description?: string;
         }).pipe(delay(150));
       }),

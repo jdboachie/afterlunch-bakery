@@ -26,7 +26,10 @@ export class Shop {
     this.cart.cart$,
   ]).pipe(
     map(([products, cart]) =>
-      products.map((p) => ({ ...p, inCartQuantity: cart.items.find((i) => i.product.id === p.id)?.quantity ?? 0 })),
+      products.map((p) => ({
+        ...p,
+        inCartQuantity: cart.items.find((i) => i.product.id === p.id)?.quantity ?? 0,
+      })),
     ),
   );
   public readonly showConfirmation$ = new BehaviorSubject<boolean>(false);
