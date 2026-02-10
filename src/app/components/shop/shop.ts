@@ -17,7 +17,7 @@ import { Inventory } from '../../services/inventory';
 export class Shop {
   public readonly cart = inject(CartContext);
   private readonly inventory = inject(Inventory);
-  private readonly products$ = this.inventory.products$;
+  public readonly loadError$ = this.inventory.loadError$;
   private readonly search$ = new BehaviorSubject<string>('');
   public readonly filteredProducts$ = this.inventory.filter(this.search$);
   public readonly showConfirmation$ = new BehaviorSubject<boolean>(false);

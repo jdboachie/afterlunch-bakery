@@ -9,8 +9,10 @@ import { catchError, map, debounceTime, distinctUntilChanged, startWith } from '
 export class Inventory {
   private http = inject(HttpClient);
   private productsSubject = new BehaviorSubject<Product[]>([]);
+  private loadErrorSubject = new BehaviorSubject<string | null>(null);
 
   public readonly products$ = this.productsSubject.asObservable();
+  public readonly loadError$ = this.loadErrorSubject.asObservable();
 
   constructor() {
     this.loadProducts();
@@ -32,10 +34,14 @@ export class Inventory {
         catchError((err) => {
           console.error('Failed to load products', err);
           this.productsSubject.next([]);
+          this.loadErrorSubject.next('Failed to load products. Please try again later.');
           return of([] as Product[]);
         }),
       )
-      .subscribe((products) => this.productsSubject.next(products));
+      .subscribe((products) => {
+        this.productsSubject.next(products);
+        this.loadErrorSubject.next(null);
+      });
   }
 
   private slugify(text: string): string {
