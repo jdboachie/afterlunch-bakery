@@ -1,10 +1,7 @@
 <div class="fixed inset-0 bg-black/40 z-20 overlay" (click)="handleStartNewOrder()"></div>
-<div
-  class="fixed inset-0 z-20 flex items-end sm:items-center justify-center pointer-events-none px-0 md:px-10"
->
+<div class="fixed inset-0 z-20 flex items-end sm:items-center justify-center pointer-events-none px-0 md:px-10">
   <div
-    class="pointer-events-auto bg-white rounded-t-xl sm:rounded-xl p-6 sm:p-10 w-full max-w-148 max-h-[90vh] overflow-y-auto enter"
-  >
+    class="pointer-events-auto bg-white rounded-t-xl sm:rounded-xl p-6 sm:p-10 w-full max-w-148 max-h-[90vh] overflow-y-auto enter">
     <img src="/images/icon-order-confirmed.svg" alt="" width="48" height="48" class="mb-6 max-sm:pt-5" />
 
     <h2 class="text-rose-900 text-preset-1 mb-2">Order Confirmed</h2>
@@ -12,46 +9,34 @@
 
     <div class="bg-rose-50 rounded-lg p-6 mb-8">
       <ul class="flex flex-col divide-y divide-rose-100">
-        @for (item of items(); track item.product.id) {
+        @for (item of items; track item.product.id) {
         <li class="flex items-center gap-4 py-4 first:pt-0 last:pb-0">
-          <img
-            [src]="item.product.image.thumbnail"
-            [alt]="item.product.name"
-            width="48"
-            height="48"
-            class="size-12 rounded object-cover"
-          />
+          <img [src]="item.product.image.thumbnail" [alt]="item.product.name" width="48" height="48"
+            class="size-12 rounded object-cover" />
           <div class="flex-1 min-w-0">
             <p class="text-rose-900 text-preset-4 font-semibold truncate">
               {{ item.product.name }}
             </p>
             <div class="flex items-center gap-2">
               <span class="text-red text-preset-4 font-semibold">{{ item.quantity }}x</span>
-              <span class="text-rose-400 text-preset-4"
-                >@ ${{ item.product.price | number:'1.2-2' }}</span
-              >
+              <span class="text-rose-400 text-preset-4">@ ${{ item.product.price | number:'1.2-2' }}</span>
             </div>
           </div>
-          <span class="text-rose-900 text-preset-3 font-semibold"
-            >${{ item.product.price * item.quantity | number:'1.2-2' }}</span
-          >
+          <span class="text-rose-900 text-preset-3 font-semibold">${{ item.product.price * item.quantity |
+            number:'1.2-2' }}</span>
         </li>
         }
       </ul>
 
       <div class="flex items-center justify-between pt-6 mt-6 border-t border-rose-100">
         <span class="text-rose-900 text-preset-4">Order Total</span>
-        <span class="text-rose-900 text-preset-2 font-bold"
-          >${{ totalPrice() | number:'1.2-2' }}</span
-        >
+        <span class="text-rose-900 text-preset-2 font-bold">${{ totalPrice | number:'1.2-2' }}</span>
       </div>
     </div>
 
-    <button
-      type="button"
+    <button type="button"
       class="w-full bg-red text-white text-preset-3 font-semibold py-4 rounded-full cursor-pointer hover:bg-rose-900 transition-colors"
-      (click)="handleStartNewOrder()"
-    >
+      (click)="handleStartNewOrder()">
       Start New Order
     </button>
   </div>
