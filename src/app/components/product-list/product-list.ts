@@ -1,22 +1,31 @@
-import { Component, ChangeDetectionStrategy, inject, input } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { Component, ChangeDetectionStrategy, inject, Input } from '@angular/core';
+import { AsyncPipe, DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { featherPlus, featherMinus } from '@ng-icons/feather-icons';
 import { CartContext } from '../../services/cart-context';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.html',
   styleUrls: ['./product-list.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIcon, DecimalPipe, RouterLink],
+  imports: [NgIcon, DecimalPipe, RouterLink, AsyncPipe],
   viewProviders: [provideIcons({ featherPlus, featherMinus })],
 })
 export class ProductList {
-  products = input<Product[]>([]);
+  @Input() products: Product[] = [];
 
   protected readonly cart = inject(CartContext);
+  readonly cart$ = this.cart.cart$;
+  readonly inCartMap$ = this.cart$.pipe(
+    map((cart) => {
+      const m: Record<string, number> = {};
+      cart.items.forEach((i) => (m[i.product.id] = i.quantity));
+      return m;
+    }),
+  );
 
   handleAddToCart(event: MouseEvent, product: Product) {
     event.stopPropagation();

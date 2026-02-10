@@ -1,10 +1,11 @@
-import { Injectable, Signal, WritableSignal, effect } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalSync {
-  init<T>(storageKey: string, target: WritableSignal<T>): LocalSync {
+  init<T>(storageKey: string, target: BehaviorSubject<T>): LocalSync {
     const raw = localStorage.getItem(storageKey);
     if (!raw) {
       return this;
@@ -12,18 +13,21 @@ export class LocalSync {
 
     try {
       const parsed = JSON.parse(raw) as T;
-      target.set(parsed);
+      target.next(parsed);
     } catch {
-      // If parsing fails, keep current cart state
+      // TODO: Handle the error
     }
 
     return this;
   }
 
-  sync<T>(storageKey: string, cart: Signal<T>): void {
-    effect(() => {
-      const value = cart();
-      localStorage.setItem(storageKey, JSON.stringify(value));
+  sync<T>(storageKey: string, source: Observable<T>): Subscription {
+    return source.subscribe((value) => {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(value));
+      } catch {
+        // TODO: Handle the error
+      }
     });
   }
 }
