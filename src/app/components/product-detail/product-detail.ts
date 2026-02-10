@@ -23,7 +23,7 @@ export class ProductDetail {
   private inventory = inject(Inventory);
   private logger = inject(Logging);
 
-  product?: Product;
+  public product?: Product;
 
   constructor() {
     const productId: string = this.activatedRoute.snapshot.params['id'];
@@ -40,29 +40,29 @@ export class ProductDetail {
       });
   }
 
-  goBack() {
+  public goBack() {
     this.router.navigateByUrl('');
   }
 
-  handleAddToCart(product: Product) {
+  public handleAddToCart(product: Product) {
     this.cart.add(product);
   }
 
-  handleIncrement() {
+  public handleIncrement() {
     if (!this.product) return;
     this.cart.increment(this.product.id);
   }
 
-  handleDecrement() {
+  public handleDecrement() {
     if (!this.product) return;
     this.cart.decrement(this.product.id);
   }
 
-  getQuantity(): number {
+  public getQuantity(): number {
     return this.product ? this.cart.getQuantity(this.product.id) : 0;
   }
 
-  isInCart(): boolean {
+  public isInCart(): boolean {
     return this.getQuantity() > 0;
   }
 }

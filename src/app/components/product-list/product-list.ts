@@ -15,11 +15,11 @@ import { map } from 'rxjs/operators';
   viewProviders: [provideIcons({ featherPlus, featherMinus })],
 })
 export class ProductList {
-  @Input() products: Product[] = [];
+  @Input() public products: Product[] = [];
 
   protected readonly cart = inject(CartContext);
-  readonly cart$ = this.cart.cart$;
-  readonly inCartMap$ = this.cart$.pipe(
+  public readonly cart$ = this.cart.cart$;
+  public readonly inCartMap$ = this.cart$.pipe(
     map((cart) => {
       const m: Record<string, number> = {};
       cart.items.forEach((i) => (m[i.product.id] = i.quantity));
@@ -27,26 +27,26 @@ export class ProductList {
     }),
   );
 
-  handleAddToCart(event: MouseEvent, product: Product) {
+  public handleAddToCart(event: MouseEvent, product: Product) {
     event.stopPropagation();
     this.cart.add(product);
   }
 
-  handleIncrement(event: MouseEvent, product: Product) {
+  public handleIncrement(event: MouseEvent, product: Product) {
     event.stopPropagation();
     this.cart.increment(product.id);
   }
 
-  handleDecrement(event: MouseEvent, product: Product) {
+  public handleDecrement(event: MouseEvent, product: Product) {
     event.stopPropagation();
     this.cart.decrement(product.id);
   }
 
-  getQuantity(productId: string): number {
+  public getQuantity(productId: string): number {
     return this.cart.getQuantity(productId);
   }
 
-  isInCart(productId: string): boolean {
+  public isInCart(productId: string): boolean {
     return this.getQuantity(productId) > 0;
   }
 }

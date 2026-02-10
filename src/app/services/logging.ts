@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class Logging {
-  reportError(msg: string): void {
+  public reportError(msg: string): void {
     console.error(`[Error] ${msg}`);
   }
 }

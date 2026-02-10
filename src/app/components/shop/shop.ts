@@ -15,20 +15,27 @@ import { Inventory } from '../../services/inventory';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Shop {
-  cart = inject(CartContext);
-  inventory = inject(Inventory);
-  products$ = this.inventory.products$;
-  showConfirmation$ = new BehaviorSubject<boolean>(false);
+  public readonly cart = inject(CartContext);
+  private readonly inventory = inject(Inventory);
+  private readonly products$ = this.inventory.products$;
+  private readonly search$ = new BehaviorSubject<string>('');
+  public readonly filteredProducts$ = this.inventory.filter(this.search$);
+  public readonly showConfirmation$ = new BehaviorSubject<boolean>(false);
 
-  handleRemove(productId: string) {
+  public handleSearch(event: Event) {
+    const v = (event.target as HTMLInputElement).value;
+    this.search$.next(v);
+  }
+
+  public handleRemove(productId: string) {
     this.cart.remove(productId);
   }
 
-  handleConfirmOrder() {
+  public handleConfirmOrder() {
     this.showConfirmation$.next(true);
   }
 
-  handleStartNewOrder() {
+  public handleStartNewOrder() {
     this.cart.clear();
     this.showConfirmation$.next(false);
   }

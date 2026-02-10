@@ -11,13 +11,13 @@ const STORAGE_KEY = 'AFTERLUNCH_CART';
 export class CartContext {
   private cartSubject = new BehaviorSubject<Cart>({ items: [], totalPrice: 0.0 });
 
-  readonly cart$ = this.cartSubject.asObservable();
+  public readonly cart$ = this.cartSubject.asObservable();
 
-  readonly totalItems$ = this.cart$.pipe(
+  public readonly totalItems$ = this.cart$.pipe(
     map((cart) => cart.items.reduce((sum, item) => sum + item.quantity, 0)),
   );
 
-  readonly totalPrice$ = this.cart$.pipe(
+  public readonly totalPrice$ = this.cart$.pipe(
     map((cart) => cart.items.reduce((sum, item) => sum + item.product.price * item.quantity, 0)),
   );
 
@@ -26,7 +26,7 @@ export class CartContext {
     this.localSync.sync(STORAGE_KEY, this.cart$);
   }
 
-  add(product: Product) {
+  public add(product: Product) {
     const cart = this.cartSubject.getValue();
     const existingItem = cart.items.find((item) => item.product.id === product.id);
 
@@ -50,7 +50,7 @@ export class CartContext {
     this.cartSubject.next(updated);
   }
 
-  remove(id: string) {
+  public remove(id: string) {
     const cart = this.cartSubject.getValue();
     const item = cart.items.find((i) => i.product.id === id);
     if (!item) return;
@@ -63,7 +63,7 @@ export class CartContext {
     this.cartSubject.next(updated);
   }
 
-  increment(id: string) {
+  public increment(id: string) {
     const cart = this.cartSubject.getValue();
     const item = cart.items.find((i) => i.product.id === id);
     if (!item) return;
@@ -76,7 +76,7 @@ export class CartContext {
     this.cartSubject.next(updated);
   }
 
-  decrement(id: string) {
+  public decrement(id: string) {
     const cart = this.cartSubject.getValue();
     const item = cart.items.find((i) => i.product.id === id);
     if (!item) return;
@@ -99,16 +99,16 @@ export class CartContext {
     this.cartSubject.next(updated);
   }
 
-  getQuantity(id: string): number {
+  public getQuantity(id: string): number {
     const item = this.cartSubject.getValue().items.find((i) => i.product.id === id);
     return item ? item.quantity : 0;
   }
 
-  clear() {
+  public clear() {
     this.cartSubject.next({ items: [], totalPrice: 0 });
   }
 
-  get(): Cart {
+  public get(): Cart {
     return this.cartSubject.getValue();
   }
 }

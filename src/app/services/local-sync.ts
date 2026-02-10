@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
   providedIn: 'root',
 })
 export class LocalSync {
-  init<T>(storageKey: string, target: BehaviorSubject<T>): LocalSync {
+  public init<T>(storageKey: string, target: BehaviorSubject<T>): LocalSync {
     const raw = localStorage.getItem(storageKey);
     if (!raw) {
       return this;
@@ -21,7 +21,7 @@ export class LocalSync {
     return this;
   }
 
-  sync<T>(storageKey: string, source: Observable<T>): Subscription {
+  public sync<T>(storageKey: string, source: Observable<T>): Subscription {
     return source.subscribe((value) => {
       try {
         localStorage.setItem(storageKey, JSON.stringify(value));

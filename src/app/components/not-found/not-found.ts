@@ -3,17 +3,12 @@ import { Logging } from '../../services/logging';
 
 @Component({
   selector: 'app-not-found',
-  template: ` <div class="flex justify-center items-center min-h-[calc(100dvh-200px)]">
-    <p class="text-sm divide-x">
-      <span class="px-4">404</span>
-      <span class="px-4">Page Not Found</span>
-    </p>
-  </div>`,
+  templateUrl: './not-found.html',
 })
 export class NotFound {
   private readonly logger = inject(Logging);
 
-  ngOnInit() {
+  public ngOnInit() {
     this.logger.reportError('User hit a 404 page');
   }
 }

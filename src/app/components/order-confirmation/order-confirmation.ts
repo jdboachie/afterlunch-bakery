@@ -9,11 +9,11 @@ import { DecimalPipe } from '@angular/common';
   imports: [DecimalPipe],
 })
 export class OrderConfirmation {
-  @Input() items!: CartItem[];
-  @Input() totalPrice!: number;
-  @Output() startNewOrder = new EventEmitter<void>();
+  @Input() public items!: CartItem[];
+  @Input() public totalPrice!: number;
+  @Output() public startNewOrder = new EventEmitter<void>();
 
-  handleStartNewOrder() {
+  public handleStartNewOrder() {
     this.startNewOrder.emit();
   }
 }

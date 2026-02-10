@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, combineLatest } from 'rxjs';
+import { catchError, map, debounceTime, distinctUntilChanged, startWith } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ export class Inventory {
   private http = inject(HttpClient);
   private productsSubject = new BehaviorSubject<Product[]>([]);
 
-  readonly products$ = this.productsSubject.asObservable();
+  public readonly products$ = this.productsSubject.asObservable();
 
   constructor() {
     this.loadProducts();
@@ -47,10 +47,28 @@ export class Inventory {
       .replace(/(^-|-$)/g, '');
   }
 
-  get(id?: string): Observable<Product | Product[] | undefined> {
+  public get(id?: string): Observable<Product | Product[] | undefined> {
     if (id) {
       return this.products$.pipe(map((products) => products.find((product) => product.id === id)));
     }
     return this.products$;
+  }
+
+  public filter(query$: Observable<string>): Observable<Product[]> {
+    const q$ = query$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map((s) => s.trim().toLowerCase()),
+      startWith(''),
+    );
+
+    return combineLatest([this.products$, q$]).pipe(
+      map(([products, q]) => {
+        if (!q) return products;
+        return products.filter(
+          (p) => p.name.toLowerCase().includes(q) || (p.category || '').toLowerCase().includes(q),
+        );
+      }),
+    );
   }
 }
