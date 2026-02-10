@@ -47,11 +47,8 @@ export class Inventory {
       .replace(/(^-|-$)/g, '');
   }
 
-  public get(id?: string): Observable<Product | Product[] | undefined> {
-    if (id) {
-      return this.products$.pipe(map((products) => products.find((product) => product.id === id)));
-    }
-    return this.products$;
+  public get(id: string): Observable<Product | undefined> {
+    return this.products$.pipe(map((products) => products.find((product) => product.id === id)));
   }
 
   public filter(query$: Observable<string>): Observable<Product[]> {
