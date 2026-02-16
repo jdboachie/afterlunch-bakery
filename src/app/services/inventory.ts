@@ -1,7 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, combineLatest } from 'rxjs';
-import { catchError, map, debounceTime, distinctUntilChanged, startWith } from 'rxjs/operators';
+import {
+  catchError,
+  map,
+  debounceTime,
+  distinctUntilChanged,
+  startWith,
+  switchMap,
+  mergeMap,
+  delay,
+} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -71,6 +80,35 @@ export class Inventory {
         return products.filter(
           (p) => p.name.toLowerCase().includes(q) || (p.category || '').toLowerCase().includes(q),
         );
+      }),
+    );
+  }
+
+  public enrichedProductsWithCart(
+    cart$: Observable<Cart>,
+  ): Observable<(Product & { inCartQuantity: number })[]> {
+    return combineLatest([this.products$, cart$]).pipe(
+      map(([products, cart]) =>
+        products.map((p) => ({
+          ...p,
+          inCartQuantity: cart.items.find((i) => i.product.id === p.id)?.quantity ?? 0,
+        })),
+      ),
+    );
+  }
+
+  public fetchProductDetails(productId$: Observable<string>): Observable<Product | undefined> {
+    return productId$.pipe(
+      distinctUntilChanged(),
+      switchMap((id) => this.get(id)),
+      mergeMap((p) => {
+        if (!p) return of(undefined);
+        return of({
+          ...(p as Product),
+          description: `${p.name} — freshly fetched details`,
+        } as Product & {
+          description?: string;
+        }).pipe(delay(150));
       }),
     );
   }

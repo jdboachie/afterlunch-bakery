@@ -13,7 +13,7 @@
       {{ (loadError$ | async) }}
     </div>
     }
-    <app-product-list [products]="(filteredProducts$ | async) ?? []" />
+    <app-product-list [products]="(enrichedFilteredProducts$ | async) ?? []" />
   </div>
 
   <aside class="w-full lg:w-96 shrink-0 bg-white rounded-lg p-6 h-fit">
